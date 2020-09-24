@@ -1,0 +1,112 @@
+
+
+body{
+  height: 99vh;
+}
+
+.form-inline {
+  margin: auto
+}
+
+.main{
+  height: 80%;
+  background-image: url(mare.jpg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+}
+
+
+
+/* main */
+
+  .section-container{
+     height: 100%;
+     width: 50%;
+     display: flex;
+     position: relative;
+  }
+
+ .section-left{
+   height: 30%;
+   width: 40%;
+   background-color: rgba(248,249,250,0.5);
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   display: grid;
+   place-items: center;
+   padding: 5%;
+}
+
+.section-left p {
+  font-size: 40px;
+  font-weight: bold;
+  font-family: 'Grandstander', cursive;
+}
+
+
+ .section-right{
+   height: 60%;
+   width: 60%;
+   background-color: rgba(248,249,250,0.5);
+   position: absolute;
+   top: 50%;
+   left: 40%;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   transform: translate(-50%, -50%);
+   line-height: 3;
+   text-align: center;
+
+ }
+
+ .section-right p {
+   padding: 3%;
+   font-size: 15px;
+   font-weight: bold;
+   position: relative;
+   right: 15%;
+
+ }
+
+   .section-container span{
+     font-weight: normal;
+   }
+
+/* footer */
+
+.card{
+  text-align: center;
+  background-color: rgba(248,249,250,0.5);
+  color: black;
+  font-family: 'Grandstander', cursive;
+
+}
+
+.card-body{
+  padding: 0.5%;
+}
+
+.card-body ul{
+   display: flex;
+   list-style-type: none;
+}
+
+.card-body li{
+  flex: 1;
+
+}
+
+
+.card-body a{
+  text-decoration: none;
+  color: green;
+  border: solid;
+  padding: 4%;
+}
