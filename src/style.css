@@ -1,4 +1,6 @@
-
+*{
+  box-sizing: border-box;
+}
 
 body{
   height: 99vh;
@@ -8,7 +10,7 @@ body{
   margin: auto
 }
 
-.main{
+.main {
   height: 80%;
   background-image: url(mare.jpg);
   background-size: cover;
@@ -50,7 +52,7 @@ body{
 }
 
 
- .section-right{
+ .section-right {
    height: 60%;
    width: 60%;
    background-color: rgba(248,249,250,0.5);
@@ -75,13 +77,13 @@ body{
 
  }
 
-   .section-container span{
+   .section-container span {
      font-weight: normal;
    }
 
 /* footer */
 
-.card{
+.card {
   text-align: center;
   background-color: rgba(248,249,250,0.5);
   color: black;
@@ -89,22 +91,22 @@ body{
 
 }
 
-.card-body{
+.card-body {
   padding: 0.5%;
 }
 
-.card-body ul{
+.card-body ul {
    display: flex;
    list-style-type: none;
 }
 
-.card-body li{
+.card-body li {
   flex: 1;
 
 }
 
 
-.card-body a{
+.card-body a {
   text-decoration: none;
   color: green;
   border: solid;

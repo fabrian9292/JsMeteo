@@ -1,12 +1,15 @@
 
 import './style.css';
-import 'bootstrap'
+import 'bootstrap';
+import 'lodash'
 
 
-const input = document.querySelector('input');
+
+const input = document.getElementById('valore');
 const spanSectionRight = document.querySelectorAll('p span')
 const sectionLeft = document.querySelector('.section-left p')
-const objGooglePlaceApi = new google.maps.places.Autocomplete(document.getElementById('valore'));
+const objGooglePlaceAutocomplete = new google.maps.places.Autocomplete(input);
+
 
 
 let objCordinate = {lat: null, lng: null, città: null, campoCittà: false}
@@ -27,7 +30,7 @@ return `https://maps.googleapis.com/maps/api/geocode/json?&address=%${objCordina
 
 //Qui effetto la geolocalizzazione della posizione
 
-let trovaPosizone =  (function() {
+let trovaPosizione =  (function() {
      let navigatore = Object.create(navigator)
      let geoLoc = navigator.geolocation
 
@@ -48,42 +51,15 @@ let trovaPosizone =  (function() {
 //Funzione autocomplete per prendere in input le città
 
 function googleAutocomplete(){
-
-input.addEventListener('keypress', function(e){
-  if (e.charCode == 13){
-     e.preventDefault()
-     sectionLeft.innerText = "Dammi una città"
-  }
-
-//qui verifico il valore di keypress, se da invio blocca la funzione altrimenti prosegue prendendo in input i dati, è stato fatto per evitare che valori non esatti venissero presi come input producedendo un errore nella richiesta
-
-  else if (e.charCode != 13) {
-
-    google.maps.event.addListener(objGooglePlaceApi, 'place_changed', function(){
-      let place = objGooglePlaceApi.getPlace();
+   google.maps.event.addListener(objGooglePlaceAutocomplete, 'place_changed', function(){
+      let place = objGooglePlaceAutocomplete.getPlace();
       sectionLeft.innerText = place.formatted_address
       objCordinate.città = place.name;
+      objCordinate.lat = place.geometry.location.lat();
+      objCordinate.lng = place.geometry.location.lng();
+      dammiMeteo(openWeatherApi.link())
 
-
-
-    let dammiCordinate = (function() {
-        fetch(googleMapsGeocodeApi.città())
-          .then((risp) =>{
-            return risp.json()
-          })
-          .then((risp) => {
-           objCordinate.lat = risp.results[0].geometry.location.lat
-           objCordinate.lng = risp.results[0].geometry.location.lng
-           dammiMeteo(openWeatherApi.link())
-         })
-    })()
-
-    })
-
-
-
-  }
-})
+      })
 }
 
 googleAutocomplete();
@@ -95,10 +71,6 @@ googleAutocomplete();
 // Ho le cordinate e apro una richiesta a openWeather
 
 function dammiMeteo(openWeatherApi){
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', openWeatherApi);
-  xhr.send();
-
   fetch(openWeatherApi).then((risp) => {
      risp = risp.json()
      return risp
@@ -106,7 +78,7 @@ function dammiMeteo(openWeatherApi){
  })
  .then((risp) =>{
         let tempMin = Math.round(risp.daily[0].temp.min,2)
-        let tempMax = Math.round(risp.daily[0].temp.max,2)
+        const tempMax = Math.round(_.get(risp, 'daily[0].temp.max', 0), 2)
         let tempDay = Math.round(risp.daily[0].wind_speed, 2)
         let mainTemp = risp.daily[0].weather[0].main
 
